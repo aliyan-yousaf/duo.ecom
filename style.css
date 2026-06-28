@@ -7,12 +7,12 @@
   --bg:           #FAF9F6;
   --bg-soft:      #F3F1EC;
   --surface:      #FFFFFF;
-  --accent-tint:  #F0EEFF;
+  --accent-tint:  #FCE9E7;
   --ink:          #1A1D1F;
   --ink-soft:     #5B5F66;
   --line:         #E4E2DC;
-  --accent:       #5B5FEF;
-  --accent-dark:  #4347C4;
+  --accent:       #E5484D;
+  --accent-dark:  #C82B30;
   --accent-ink:   #FFFFFF;
   --success:      #1F9D6B;
   --shadow-soft:  rgba(26,29,31,.14);
@@ -38,12 +38,12 @@
   --bg:           #14161A;
   --bg-soft:      #1B1E23;
   --surface:      #1F2228;
-  --accent-tint:  #262A45;
+  --accent-tint:  #3A2222;
   --ink:          #F2F1ED;
   --ink-soft:     #9A9DA4;
   --line:         #2D3038;
-  --accent:       #7B7FFF;
-  --accent-dark:  #A5A8FF;
+  --accent:       #FF6B6F;
+  --accent-dark:  #FF9A9D;
   --accent-ink:   #14161A;
   --success:      #36C98C;
   --shadow-soft:  rgba(0,0,0,.45);
@@ -184,7 +184,7 @@ p { color: var(--ink-soft); }
   background: var(--accent);
   color: #fff;
 }
-.btn-accent:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(91,95,239,.35); background: var(--accent-dark); }
+.btn-accent:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(229,72,77,.35); background: var(--accent-dark); }
 
 .btn-ghost {
   background: transparent;
@@ -268,7 +268,11 @@ p { color: var(--ink-soft); }
 
 .nav-cta { display: none; }
 
-/* Theme toggle */
+/* Theme toggle — desktop only in the header.
+   Mobile already has its own toggle ("Dark mode") inside the slide-out menu,
+   so showing this one too was a duplicate next to the hamburger/close icon. */
+.theme-toggle { display: none; }
+
 .nav-right {
   display: flex;
   align-items: center;
@@ -359,18 +363,25 @@ p { color: var(--ink-soft); }
 .mobile-menu ul { display: flex; flex-direction: column; gap: 6px; }
 .mobile-menu a {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 8vw, 2.4rem);
+  font-size: 20px;
   font-weight: 600;
   padding: 14px 0;
   border-bottom: 1px solid var(--line);
   display: block;
 }
-.mobile-menu .mm-cta { margin-top: 28px; align-self: flex-start; }
+.mobile-menu .mm-cta {
+  margin-top: 28px;
+  align-self: flex-start;
+  font-size: 14px;
+  padding: 11px 20px;
+  border-radius: var(--radius-sm);
+}
 
 @media (min-width: 900px) {
   .nav-links { display: flex; }
   .nav-cta { display: inline-flex; }
   .nav-toggle { display: none; }
+  .theme-toggle { display: flex; }
 }
 
 /* ==========================================================================
@@ -741,7 +752,7 @@ p { color: var(--ink-soft); }
   content: "";
   position: absolute;
   width: 420px; height: 420px;
-  background: radial-gradient(circle, rgba(91,95,239,.5), transparent 70%);
+  background: radial-gradient(circle, rgba(229,72,77,.5), transparent 70%);
   top: -160px; right: -120px;
 }
 .cta-band h2, .cta-band p { color: #fff; position: relative; z-index: 1; }
