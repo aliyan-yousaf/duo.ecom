@@ -173,6 +173,51 @@ document.addEventListener('DOMContentLoaded', () => {
     skillBars.forEach(el => el.classList.add('in-view'));
   }
 
+  /* ---- Hero stats: count-up animation once they scroll into view ---- */
+  const heroStats = document.querySelectorAll('.hero-stat .num');
+  if (heroStats.length) {
+    const animateCount = (el) => {
+      const raw = el.dataset.value || el.textContent;
+      const match = raw.match(/^([\d.]+)(.*)$/);
+      if (!match) { el.textContent = raw; return; }
+      const end = parseFloat(match[1]);
+      const suffix = match[2] || '';
+      const isDecimal = match[1].includes('.');
+      const duration = 1100;
+      const start = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = end * eased;
+        el.textContent = (isDecimal ? current.toFixed(1) : Math.round(current)) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    heroStats.forEach(el => { el.dataset.value = el.textContent.trim(); });
+
+    const statEls = document.querySelectorAll('.hero-stat');
+    if ('IntersectionObserver' in window) {
+      const statIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            animateCount(entry.target.querySelector('.num'));
+            statIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      statEls.forEach(el => statIo.observe(el));
+    } else {
+      statEls.forEach(el => {
+        el.classList.add('in-view');
+        animateCount(el.querySelector('.num'));
+      });
+    }
+  }
+
   /* ---- FAQ accordion ---- */
   document.querySelectorAll('.faq-item').forEach(item => {
     const btn = item.querySelector('.faq-q');
