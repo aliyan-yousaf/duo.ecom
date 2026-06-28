@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.duoecom.com/sitemap.xml
+Sitemap: https://duoecom.com/sitemap.xml
