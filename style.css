@@ -685,6 +685,15 @@ p { color: var(--ink-soft); }
   transition: text-shadow .3s ease;
 }
 .process-step:hover .process-num { text-shadow: 0 0 14px rgba(229,72,77,.5); }
+@media (max-width: 699px) {
+  .process-step {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .process-step p {
+    text-align: left;
+  }
+}
 @media (min-width: 700px) {
   .process-step { grid-template-columns: 80px 1fr 1fr; align-items: start; }
 }
