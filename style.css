@@ -463,12 +463,15 @@ p { color: var(--ink-soft); }
 }
 
 .hero-stats {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 28px;
-  margin-top: 44px;
-  padding-top: 28px;
+  margin-top: 48px;
+  padding-top: 32px;
   border-top: 1px solid var(--line);
+}
+@media (min-width: 640px) {
+  .hero-stats { grid-template-columns: repeat(4, 1fr); }
 }
 .hero-stat .num {
   font-family: var(--font-display);
@@ -971,6 +974,58 @@ p { color: var(--ink-soft); }
 .skill-bar-track { height: 6px; background: var(--bg-soft); border-radius: 999px; overflow: hidden; }
 .skill-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; transform-origin: left; transform: scaleX(0); transition: transform 1s var(--ease); }
 .skill-bar-fill.in-view { transform: scaleX(1); }
+
+/* ==========================================================================
+   Tech stack grid (home page — "Technologies I use daily")
+   ========================================================================== */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (min-width: 640px) { .tech-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 980px) { .tech-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.tech-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 26px 20px;
+  text-align: center;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease;
+}
+.tech-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -16px var(--shadow-soft);
+  border-color: var(--accent);
+}
+.tech-icon {
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 14px;
+  display: inline-block;
+  transition: transform .3s var(--ease);
+}
+.tech-card:hover .tech-icon {
+  transform: scale(1.15) rotate(-4deg);
+}
+.tech-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.tech-bar {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+  width: 70%;
+  margin: 0 auto;
+  transition: width .3s var(--ease), filter .3s ease;
+}
+.tech-card:hover .tech-bar {
+  width: 100%;
+  filter: brightness(1.15);
+}
 
 /* ==========================================================================
    Reveal-on-scroll utility
