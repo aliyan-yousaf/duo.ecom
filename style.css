@@ -122,7 +122,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: 12px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--accent-dark);
+  color: var(--success);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -134,8 +134,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--success);
   flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(31,157,107,.5);
+  animation: eyebrow-pulse 2s ease-out infinite;
+}
+
+@keyframes eyebrow-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(31,157,107,.5); }
+  70%  { box-shadow: 0 0 0 6px rgba(31,157,107,0); }
+  100% { box-shadow: 0 0 0 0 rgba(31,157,107,0); }
+}
+
+[data-theme="dark"] .eyebrow::before {
+  animation-name: eyebrow-pulse-dark;
+}
+
+@keyframes eyebrow-pulse-dark {
+  0%   { box-shadow: 0 0 0 0 rgba(54,201,140,.5); }
+  70%  { box-shadow: 0 0 0 6px rgba(54,201,140,0); }
+  100% { box-shadow: 0 0 0 0 rgba(54,201,140,0); }
 }
 
 h1, h2, h3, h4 {
@@ -929,6 +947,55 @@ p { color: var(--ink-soft); }
 .contact-item .val { font-size: 14.5px; font-weight: 600; margin-top: 2px; }
 
 /* FAQ */
+.fast-response-card {
+  position: relative;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: 24px 26px;
+  margin-top: 24px;
+}
+.fast-response-card .frc-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.fast-response-card .frc-head svg {
+  width: 19px; height: 19px;
+  stroke: var(--accent);
+  fill: var(--accent);
+  flex-shrink: 0;
+}
+.fast-response-card .frc-head h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin: 0;
+}
+.fast-response-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #25D366;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(37,211,102,.32); }
+.whatsapp-btn svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
+
 .faq-item {
   border-bottom: 1px solid var(--line);
 }
@@ -964,7 +1031,7 @@ p { color: var(--ink-soft); }
   transition: max-height .35s var(--ease);
 }
 .faq-a-inner { padding-bottom: 22px; max-width: 70ch; }
-.faq-item.open .faq-a { max-height: 300px; }
+.faq-item.open .faq-a { max-height: 420px; }
 
 /* About page specifics */
 .value-list { display: grid; gap: 18px; }
@@ -1085,6 +1152,19 @@ p { color: var(--ink-soft); }
 .logo img {
     height: 60px;
     width: auto;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), filter .3s ease;
+    animation: logo-in .9s cubic-bezier(.22,1,.36,1) both;
+}
+
+.logo:hover img {
+    transform: scale(1.12) rotate(8deg);
+}
+
+@keyframes logo-in {
+  0%   { opacity: 0; transform: scale(.2) rotate(-180deg); }
+  60%  { opacity: 1; transform: scale(1.12) rotate(10deg); }
+  80%  { transform: scale(.96) rotate(-4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
 }
 
 /* Logo Text */
