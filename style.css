@@ -1031,7 +1031,9 @@ p { color: var(--ink-soft); }
   transition: max-height .35s var(--ease);
 }
 .faq-a-inner { padding-bottom: 22px; max-width: 70ch; }
-.faq-item.open .faq-a { max-height: 420px; }
+.faq-a-inner p { margin-bottom: 10px; line-height: 1.55; color: var(--ink-soft); }
+.faq-a-inner p:last-child { margin-bottom: 0; }
+.faq-item.open .faq-a { max-height: 480px; }
 
 /* About page specifics */
 .value-list { display: grid; gap: 18px; }
