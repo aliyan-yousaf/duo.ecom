@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+(function(){
+  try {
+    var t = localStorage.getItem('duoecom-theme');
+    if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  } catch (e) {}
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DuoEcom | Shopify Store Design &amp; Development Agency</title>
 <meta name="description" content="DuoEcom is a Shopify design and development studio building high-converting ecommerce stores. Custom theme design, full store builds, migrations, and speed optimization for ambitious brands.">
@@ -60,6 +68,15 @@
 </script>
 </head>
 <body>
+
+<div id="preloader">
+  <div class="preloader-logo">
+    <img src="./images/logo1.png" alt="DuoEcom" class="logo-light">
+    <img src="./images/logo2.png" alt="DuoEcom" class="logo-dark">
+  </div>
+  <div class="preloader-bar"></div>
+</div>
+
 
 <header class="site-header">
   <nav class="nav container">

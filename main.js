@@ -4,6 +4,23 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---- Preloader ---- */
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    const hidePreloader = () => {
+      if (preloader.classList.contains('is-hidden')) return;
+      preloader.classList.add('is-hidden');
+      setTimeout(() => preloader.remove(), 600);
+    };
+    if (document.readyState === 'complete') {
+      hidePreloader();
+    } else {
+      window.addEventListener('load', hidePreloader);
+    }
+    // Safety fallback in case some asset never fires load
+    setTimeout(hidePreloader, 3500);
+  }
+
   /* ---- Theme toggle (dark / light) ---- */
   const root = document.documentElement;
   const toggles = document.querySelectorAll('.theme-toggle, .theme-toggle-mobile');

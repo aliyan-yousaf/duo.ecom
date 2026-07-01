@@ -947,55 +947,6 @@ p { color: var(--ink-soft); }
 .contact-item .val { font-size: 14.5px; font-weight: 600; margin-top: 2px; }
 
 /* FAQ */
-.fast-response-card {
-  position: relative;
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--radius-lg);
-  padding: 24px 26px;
-  margin-top: 24px;
-}
-.fast-response-card .frc-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.fast-response-card .frc-head svg {
-  width: 19px; height: 19px;
-  stroke: var(--accent);
-  fill: var(--accent);
-  flex-shrink: 0;
-}
-.fast-response-card .frc-head h4 {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--accent-dark);
-  margin: 0;
-}
-.fast-response-card p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  margin-bottom: 16px;
-}
-.whatsapp-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  background: #25D366;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 11px 18px;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-.whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(37,211,102,.32); }
-.whatsapp-btn svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
-
 .faq-item {
   border-bottom: 1px solid var(--line);
 }
@@ -1031,9 +982,7 @@ p { color: var(--ink-soft); }
   transition: max-height .35s var(--ease);
 }
 .faq-a-inner { padding-bottom: 22px; max-width: 70ch; }
-.faq-a-inner p { margin-bottom: 10px; line-height: 1.55; color: var(--ink-soft); }
-.faq-a-inner p:last-child { margin-bottom: 0; }
-.faq-item.open .faq-a { max-height: 480px; }
+.faq-item.open .faq-a { max-height: 300px; }
 
 /* About page specifics */
 .value-list { display: grid; gap: 18px; }
@@ -1223,4 +1172,68 @@ p { color: var(--ink-soft); }
 
 [data-theme="dark"] .logo-avatar .logo-dark{
     display: block;
+}
+
+/* ==========================================================================
+   Preloader
+   ========================================================================== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  transition: opacity .5s ease, visibility .5s ease;
+}
+#preloader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+#preloader .preloader-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: preloader-breathe 1.6s ease-in-out infinite;
+}
+#preloader .preloader-logo img {
+  height: 56px;
+  width: auto;
+}
+@media (min-width: 640px) {
+  #preloader .preloader-logo img { height: 68px; }
+}
+@keyframes preloader-breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: .55; transform: scale(.96); }
+}
+#preloader .preloader-bar {
+  width: 150px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+  position: relative;
+}
+#preloader .preloader-bar::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -40%;
+  height: 100%;
+  width: 40%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+  animation: preloader-slide 1.15s ease-in-out infinite;
+}
+@keyframes preloader-slide {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #preloader .preloader-logo { animation: none; }
+  #preloader .preloader-bar::after { animation: none; left: 0; width: 100%; }
 }
