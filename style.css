@@ -18,6 +18,10 @@
   --shadow-soft:  rgba(26,29,31,.14);
   --shadow-strong: rgba(26,29,31,.22);
 
+  /* Hero network graphic — theme-aware line/dot colors */
+  --net-line-color: rgba(26,29,31,.08);
+  --net-dot-color:  rgba(26,29,31,.25);
+
   /* Type */
   --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
   --font-body:    "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -48,6 +52,9 @@
   --success:      #36C98C;
   --shadow-soft:  rgba(0,0,0,.45);
   --shadow-strong: rgba(0,0,0,.6);
+
+  --net-line-color: rgba(255,255,255,.10);
+  --net-dot-color:  rgba(255,255,255,.35);
 }
 
 [data-theme="dark"] .site-header { background: rgba(20,22,26,.82); }
@@ -1238,8 +1245,10 @@ p { color: var(--ink-soft); }
 }
 
 /* ==========================================================================
-   Hero — premium dark card with decorative network graphic
-   (replaces the old image/dashboard-mock; text/copy unchanged)
+   Hero — premium card with decorative network graphic.
+   Now fully theme-aware: uses --bg-soft/--ink/--ink-soft/--line tokens so
+   light mode gets a light card + dark text, dark mode gets a dark card +
+   light text automatically, matching the rest of the site.
    ========================================================================== */
 .hero {
   padding-top: 0;
@@ -1247,7 +1256,8 @@ p { color: var(--ink-soft); }
 }
 
 .hero-premium {
-  background: var(--ink);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
   width: 100%;
   padding: 20px 0 24px;
   position: relative;
@@ -1272,32 +1282,22 @@ p { color: var(--ink-soft); }
   z-index: 2;
 }
 
-.hero-premium .eyebrow { color: #34D399; }
-.hero-premium .eyebrow::before { background: #34D399; }
-
 .hero-premium h1,
-.hero-premium h1 em { color: #fff; }
-.hero-premium .lead { color: rgba(255,255,255,.66); }
+.hero-premium h1 em { color: var(--ink); }
+.hero-premium .lead { color: var(--ink-soft); }
 
 .hero-premium .btn-accent,
 .hero-premium .btn-ghost {
   border-radius: 10px;
 }
-.hero-premium .btn-ghost {
-  border-color: rgba(255,255,255,.25);
-  color: #fff;
-}
-.hero-premium .btn-ghost:hover { border-color: #fff; }
 
 .hero-premium .hero-stats {
-  border-top-color: rgba(255,255,255,.14);
+  border-top-color: var(--line);
   position: relative;
   z-index: 2;
 }
-.hero-premium .hero-stat .num { color: #fff; }
-.hero-premium .hero-stat .label { color: rgba(255,255,255,.48); }
 
-/* Decorative animated line-network — replaces old glow orbs */
+/* Decorative animated line-network — adapts to theme via --net-line-color/--net-dot-color */
 .hero-network {
   position: absolute;
   inset: 0;
@@ -1312,12 +1312,12 @@ p { color: var(--ink-soft); }
 }
 
 .net-line {
-  stroke: rgba(255,255,255,.10);
+  stroke: var(--net-line-color);
   stroke-width: 1.5;
 }
 
 .net-dot {
-  fill: rgba(255,255,255,.35);
+  fill: var(--net-dot-color);
 }
 
 /* the moving "light" that travels along each line */
@@ -1349,8 +1349,3 @@ p { color: var(--ink-soft); }
 @media (prefers-reduced-motion: reduce) {
   .net-flow { animation: none; opacity: .4; stroke-dasharray: none; }
 }
-
-/* Site's own dark mode flips --ink to a light color (it's the text color
-   token), so give the hero card the same treatment as .cta-band: swap to
-   --surface, which stays dark in dark mode. */
-[data-theme="dark"] .hero-premium { background: var(--surface); border: 1px solid var(--line); }
