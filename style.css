@@ -1032,6 +1032,68 @@ p { color: var(--ink-soft); }
 .contact-item .lbl { font-size: 12px; color: var(--ink-soft); font-family: var(--font-mono); }
 .contact-item .val { font-size: 14.5px; font-weight: 600; margin-top: 2px; }
 
+/* ==========================================================================
+   Fast response card (contact page — sits below contact-info-card)
+   ========================================================================== */
+.fast-response-card {
+  margin-top: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+}
+
+.frc-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.frc-head svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  fill: var(--accent);
+}
+
+.frc-head h4 {
+  font-size: 16px;
+}
+
+.fast-response-card > p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14.5px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .2s ease;
+}
+
+.whatsapp-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: #fff;
+  flex-shrink: 0;
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37,211,102,.35);
+  background: #22bf5b;
+}
+
 /* FAQ */
 .faq-item {
   border-bottom: 1px solid var(--line);
@@ -1085,7 +1147,7 @@ p { color: var(--ink-soft); }
 .skill-bar-label { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; margin-bottom: 8px; }
 .skill-bar-label span:last-child { color: var(--ink-soft); font-family: var(--font-mono); font-weight: 400; }
 .skill-bar-track { height: 6px; background: var(--bg-soft); border-radius: 999px; overflow: hidden; }
-.skill-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; transform-origin: left; transform: scaleX(0); transition: transform 1s var(--ease); }
+.skill-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; transform-origin: left; transform: scaleX(1); transition: transform 1s var(--ease); }
 .skill-bar-fill.in-view { transform: scaleX(1); }
 
 /* ==========================================================================
@@ -1118,13 +1180,6 @@ p { color: var(--ink-soft); }
   margin-bottom: 14px;
   display: inline-block;
   transition: transform .3s var(--ease);
-}
-.tech-icon img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
 }
 .tech-card:hover .tech-icon {
   transform: scale(1.15) rotate(-4deg);
