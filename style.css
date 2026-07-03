@@ -913,7 +913,7 @@ p { color: var(--ink-soft); }
 
 .cta-band .btn-ghost { border-color: var(--line); color: var(--ink); }
 
-[data-theme="dark"] .cta-band { background: #14161A; border: none; }
+[data-theme="dark"] .cta-band { background: var(--dark-bg); border: none; }
 [data-theme="dark"] .cta-band h2, [data-theme="dark"] .cta-band p { color: #fff; }
 [data-theme="dark"] .cta-band p { color: rgba(255,255,255,.65); }
 [data-theme="dark"] .cta-band::before { opacity: .5; }
