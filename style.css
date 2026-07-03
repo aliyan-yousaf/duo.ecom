@@ -62,8 +62,6 @@
 [data-theme="dark"] .btn-primary { background: var(--accent); color: var(--accent-ink); }
 [data-theme="dark"] .btn-primary:hover { background: var(--accent-dark); }
 [data-theme="dark"] .logo-mark::after { border-color: var(--accent-ink); }
-[data-theme="dark"] .cta-band { background: var(--surface); border: 1px solid var(--line); }
-[data-theme="dark"] .cta-band::before { opacity: .5; }
 [data-theme="dark"] .social-btn svg { fill: var(--ink); }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -888,9 +886,12 @@ p { color: var(--ink-soft); }
 
 /* ==========================================================================
    CTA band
+   Theme-aware: light mode gets a light surface card, dark mode gets the
+   dark ink card with the red radial glow.
    ========================================================================== */
 .cta-band {
-  background: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 52px 28px;
   text-align: center;
@@ -903,10 +904,20 @@ p { color: var(--ink-soft); }
   width: 420px; height: 420px;
   background: radial-gradient(circle, rgba(229,72,77,.5), transparent 70%);
   top: -160px; right: -120px;
+  opacity: .25;
+  transition: opacity .35s ease;
 }
-.cta-band h2, .cta-band p { color: #fff; position: relative; z-index: 1; }
-.cta-band p { color: rgba(255,255,255,.65); margin: 14px auto 28px; }
+.cta-band h2, .cta-band p { color: var(--ink); position: relative; z-index: 1; }
+.cta-band p { color: var(--ink-soft); margin: 14px auto 28px; }
 .cta-band .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+.cta-band .btn-ghost { border-color: var(--line); color: var(--ink); }
+
+[data-theme="dark"] .cta-band { background: #14161A; border: none; }
+[data-theme="dark"] .cta-band h2, [data-theme="dark"] .cta-band p { color: #fff; }
+[data-theme="dark"] .cta-band p { color: rgba(255,255,255,.65); }
+[data-theme="dark"] .cta-band::before { opacity: .5; }
+[data-theme="dark"] .cta-band .btn-ghost { border-color: rgba(255,255,255,.3); color: #fff; }
 
 @media (min-width: 900px) { .cta-band { padding: 76px 40px; } }
 
