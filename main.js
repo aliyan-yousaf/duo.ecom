@@ -1,11 +1,10 @@
-
 /* ==========================================================================
    DuoEcom — main.js
    Premium interaction layer: preloader, theme + mobile menu, scroll progress,
    scroll-reveal, image "uncover" reveal, stat count-up, magnetic buttons,
-   3D card tilt, and a gentle hero parallax. Everything guards for
-   prefers-reduced-motion and touch input, and uses passive/rAF-throttled
-   listeners so it stays cheap on scroll.
+   3D card tilt, gentle hero parallax, and portfolio filtering. Everything
+   guards for prefers-reduced-motion and touch input, and uses passive/
+   rAF-throttled listeners so it stays cheap on scroll.
    ========================================================================== */
 (function () {
   "use strict";
@@ -367,6 +366,32 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Portfolio filter buttons (portfolio page)                          */
+  /* ------------------------------------------------------------------ */
+  function initPortfolioFilter() {
+    var buttons = doc.querySelectorAll(".filter-btn");
+    var cards = doc.querySelectorAll(".portfolio-card");
+    if (!buttons.length || !cards.length) return;
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        buttons.forEach(function (b) {
+          b.classList.remove("is-active");
+        });
+        btn.classList.add("is-active");
+
+        var filter = btn.getAttribute("data-filter");
+
+        cards.forEach(function (card) {
+          var category = card.getAttribute("data-category");
+          var show = filter === "all" || category === filter;
+          card.style.display = show ? "" : "none";
+        });
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
   /* Smooth in-page anchor scrolling (nav mostly links between pages,    */
   /* but this covers any #anchor links safely without a heavy library). */
   /* ------------------------------------------------------------------ */
@@ -397,6 +422,7 @@
     initCardTilt();
     initHeroParallax();
     initFaq();
+    initPortfolioFilter();
     initAnchorScroll();
   });
 })();
