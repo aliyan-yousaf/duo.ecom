@@ -373,22 +373,30 @@
     var cards = doc.querySelectorAll(".portfolio-card");
     if (!buttons.length || !cards.length) return;
 
+    var applyFilter = function (filter) {
+      cards.forEach(function (card) {
+        var category = card.getAttribute("data-category");
+        var show = category === filter;
+        card.style.display = show ? "" : "none";
+      });
+    };
+
     buttons.forEach(function (btn) {
       btn.addEventListener("click", function () {
         buttons.forEach(function (b) {
           b.classList.remove("is-active");
         });
         btn.classList.add("is-active");
-
-        var filter = btn.getAttribute("data-filter");
-
-        cards.forEach(function (card) {
-          var category = card.getAttribute("data-category");
-          var show = filter === "all" || category === filter;
-          card.style.display = show ? "" : "none";
-        });
+        applyFilter(btn.getAttribute("data-filter"));
       });
     });
+
+    // Apply whichever button is marked active on page load,
+    // so the grid isn't showing every category before the first click.
+    var initialBtn = doc.querySelector(".filter-btn.is-active") || buttons[0];
+    if (initialBtn) {
+      applyFilter(initialBtn.getAttribute("data-filter"));
+    }
   }
 
   /* ------------------------------------------------------------------ */
