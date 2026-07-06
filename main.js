@@ -2,9 +2,12 @@
    DuoEcom — main.js
    Premium interaction layer: preloader, theme + mobile menu, scroll progress,
    scroll-reveal, image "uncover" reveal, stat count-up, magnetic buttons,
-   3D card tilt, gentle hero parallax, and portfolio filtering. Everything
-   guards for prefers-reduced-motion and touch input, and uses passive/
-   rAF-throttled listeners so it stays cheap on scroll.
+   3D card tilt, gentle hero parallax, portfolio filtering, plus the new
+   premium functional sections — infinite tech marquee, numbered interactive
+   services tabs, and a shared draggable/swipeable carousel (used for both
+   the portfolio preview and testimonials). Everything guards for
+   prefers-reduced-motion and touch input, and uses passive/rAF-throttled
+   listeners so it stays cheap on scroll.
    ========================================================================== */
 (function () {
   "use strict";
@@ -288,7 +291,7 @@
   function initCardTilt() {
     if (reduceMotion || isTouch) return;
     var cards = doc.querySelectorAll(
-      ".card:not(.portfolio-card), .tech-card"
+      ".card:not(.portfolio-card):not(.testimonial-card), .tech-card"
     );
     var maxTilt = 6;
 
@@ -419,6 +422,289 @@
     });
   }
 
+  /* ------------------------------------------------------------------ */
+  /* Tech marquee — infinite auto-scroll strip. The HTML already ships  */
+  /* two identical tracks back to back so the CSS keyframe loop is      */
+  /* seamless; JS just pauses the animation while a finger is dragging  */
+  /* on touch devices, mirroring the hover-to-pause behaviour on desktop*/
+  /* ------------------------------------------------------------------ */
+  function initTechMarquee() {
+    var marquee = doc.querySelector("[data-marquee]");
+    if (!marquee) return;
+
+    if (!isTouch) return; // hover-to-pause via CSS already covers desktop
+
+    var startX = null;
+    marquee.addEventListener(
+      "touchstart",
+      function (e) {
+        startX = e.touches[0].clientX;
+        marquee.classList.add("is-paused");
+      },
+      { passive: true }
+    );
+    marquee.addEventListener(
+      "touchend",
+      function () {
+        marquee.classList.remove("is-paused");
+        startX = null;
+      },
+      { passive: true }
+    );
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Services — numbered interactive tab panel (w3lead-style).          */
+  /* Clicking (or hovering, on desktop) a numbered row swaps the panel  */
+  /* on the right. Each active row also auto-advances after a few       */
+  /* seconds via a thin progress bar, similar to the reference site.    */
+  /* ------------------------------------------------------------------ */
+  function initServiceTabs() {
+    var wrap = doc.querySelector("[data-service-tabs]");
+    if (!wrap) return;
+
+    var navItems = Array.prototype.slice.call(
+      wrap.querySelectorAll(".service-nav-item")
+    );
+    var panels = Array.prototype.slice.call(
+      wrap.querySelectorAll(".service-panel")
+    );
+    if (!navItems.length || !panels.length) return;
+
+    var activeIndex = 0;
+    var AUTOPLAY_MS = 6000;
+    var timer = null;
+    var paused = false;
+
+    var setActive = function (index) {
+      activeIndex = index;
+      navItems.forEach(function (item, i) {
+        item.classList.toggle("is-active", i === index);
+      });
+      panels.forEach(function (panel, i) {
+        panel.classList.toggle("is-active", i === index);
+      });
+    };
+
+    var next = function () {
+      setActive((activeIndex + 1) % navItems.length);
+    };
+
+    var restartAutoplay = function () {
+      if (timer) clearInterval(timer);
+      if (reduceMotion) return;
+      timer = setInterval(function () {
+        if (!paused) next();
+      }, AUTOPLAY_MS);
+    };
+
+    navItems.forEach(function (item, i) {
+      item.addEventListener("click", function () {
+        setActive(i);
+        restartAutoplay();
+      });
+    });
+
+    wrap.addEventListener("mouseenter", function () {
+      paused = true;
+    });
+    wrap.addEventListener("mouseleave", function () {
+      paused = false;
+    });
+
+    setActive(0);
+    restartAutoplay();
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Shared carousel — powers both the portfolio preview and the        */
+  /* testimonials grid. Supports arrow buttons, dot pagination,         */
+  /* pointer drag / touch swipe, keyboard arrows, and (for testimonials)*/
+  /* gentle autoplay that pauses on hover/focus/drag.                   */
+  /* ------------------------------------------------------------------ */
+  function initCarousels() {
+    var carousels = doc.querySelectorAll("[data-carousel]");
+    if (!carousels.length) return;
+
+    carousels.forEach(function (root) {
+      var viewport = root.querySelector("[data-carousel-viewport]");
+      var track = root.querySelector("[data-carousel-track]");
+      var slides = Array.prototype.slice.call(
+        track ? track.children : []
+      );
+      var prevBtn = root.querySelector("[data-carousel-prev]");
+      var nextBtn = root.querySelector("[data-carousel-next]");
+      var dotsWrap = root.querySelector("[data-carousel-dots]");
+      if (!viewport || !track || !slides.length) return;
+
+      var perView = 1;
+      var index = 0;
+      var autoplayTimer = null;
+      var isTestimonial = root.classList.contains("testimonial-carousel");
+      var AUTOPLAY_MS = 5000;
+
+      var getPerView = function () {
+        var w = window.innerWidth;
+        if (w >= 1040) return Math.min(3, slides.length);
+        if (w >= 700) return Math.min(2, slides.length);
+        return 1;
+      };
+
+      var maxIndex = function () {
+        return Math.max(0, slides.length - perView);
+      };
+
+      var buildDots = function () {
+        if (!dotsWrap) return;
+        dotsWrap.innerHTML = "";
+        var count = maxIndex() + 1;
+        for (var i = 0; i < count; i++) {
+          var dot = doc.createElement("button");
+          dot.type = "button";
+          dot.className = "carousel-dot";
+          dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+          (function (idx) {
+            dot.addEventListener("click", function () {
+              goTo(idx);
+              restartAutoplay();
+            });
+          })(i);
+          dotsWrap.appendChild(dot);
+        }
+      };
+
+      var updateDots = function () {
+        if (!dotsWrap) return;
+        Array.prototype.forEach.call(
+          dotsWrap.children,
+          function (dot, i) {
+            dot.classList.toggle("is-active", i === index);
+          }
+        );
+      };
+
+      var updateArrows = function () {
+        if (prevBtn) prevBtn.disabled = index <= 0 && maxIndex() === 0 ? false : index <= 0;
+        if (nextBtn) nextBtn.disabled = index >= maxIndex();
+        if (maxIndex() === 0) {
+          if (prevBtn) prevBtn.disabled = true;
+          if (nextBtn) nextBtn.disabled = true;
+        }
+      };
+
+      var render = function () {
+        var slideWidth = slides[0].getBoundingClientRect().width;
+        var gap = parseFloat(getComputedStyle(track).gap) || 0;
+        var offset = index * (slideWidth + gap);
+        track.style.transform = "translateX(-" + offset + "px)";
+        updateDots();
+        updateArrows();
+      };
+
+      var goTo = function (i) {
+        index = Math.max(0, Math.min(i, maxIndex()));
+        render();
+      };
+
+      var next = function () {
+        goTo(index >= maxIndex() ? 0 : index + 1);
+      };
+      var prev = function () {
+        goTo(index <= 0 ? maxIndex() : index - 1);
+      };
+
+      var restartAutoplay = function () {
+        if (autoplayTimer) clearInterval(autoplayTimer);
+        if (!isTestimonial || reduceMotion) return;
+        autoplayTimer = setInterval(next, AUTOPLAY_MS);
+      };
+
+      if (nextBtn)
+        nextBtn.addEventListener("click", function () {
+          next();
+          restartAutoplay();
+        });
+      if (prevBtn)
+        prevBtn.addEventListener("click", function () {
+          prev();
+          restartAutoplay();
+        });
+
+      root.addEventListener("mouseenter", function () {
+        if (autoplayTimer) clearInterval(autoplayTimer);
+      });
+      root.addEventListener("mouseleave", restartAutoplay);
+
+      /* Pointer / touch drag */
+      var dragStartX = 0;
+      var dragging = false;
+      var startOffset = 0;
+
+      var pointerDown = function (e) {
+        dragging = true;
+        dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
+        var slideWidth = slides[0].getBoundingClientRect().width;
+        var gap = parseFloat(getComputedStyle(track).gap) || 0;
+        startOffset = index * (slideWidth + gap);
+        track.classList.add("is-dragging");
+        if (autoplayTimer) clearInterval(autoplayTimer);
+      };
+
+      var pointerMove = function (e) {
+        if (!dragging) return;
+        var x = (e.touches ? e.touches[0].clientX : e.clientX);
+        var delta = x - dragStartX;
+        track.style.transform = "translateX(" + (-startOffset + delta) + "px)";
+      };
+
+      var pointerUp = function (e) {
+        if (!dragging) return;
+        dragging = false;
+        track.classList.remove("is-dragging");
+        var x = (e.changedTouches ? e.changedTouches[0].clientX : e.clientX);
+        var delta = x - dragStartX;
+        var threshold = 50;
+        if (delta < -threshold) next();
+        else if (delta > threshold) prev();
+        else render();
+        restartAutoplay();
+      };
+
+      track.addEventListener("mousedown", pointerDown);
+      window.addEventListener("mousemove", pointerMove);
+      window.addEventListener("mouseup", pointerUp);
+      track.addEventListener("touchstart", pointerDown, { passive: true });
+      track.addEventListener("touchmove", pointerMove, { passive: true });
+      track.addEventListener("touchend", pointerUp);
+
+      /* Keyboard */
+      root.setAttribute("tabindex", "0");
+      root.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight") {
+          next();
+          restartAutoplay();
+        } else if (e.key === "ArrowLeft") {
+          prev();
+          restartAutoplay();
+        }
+      });
+
+      var handleResize = function () {
+        perView = getPerView();
+        index = Math.min(index, maxIndex());
+        buildDots();
+        render();
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      perView = getPerView();
+      buildDots();
+      render();
+      restartAutoplay();
+    });
+  }
+
   onReady(function () {
     initPreloader();
     initTheme();
@@ -432,5 +718,8 @@
     initFaq();
     initPortfolioFilter();
     initAnchorScroll();
+    initTechMarquee();
+    initServiceTabs();
+    initCarousels();
   });
 })();
