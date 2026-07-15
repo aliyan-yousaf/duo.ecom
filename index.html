@@ -66,6 +66,7 @@
   "url": "https://duoecom.com/"
 }
 </script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
 
@@ -81,7 +82,7 @@
 
 
 <header class="site-header">
-  <nav class="nav container">
+  <nav class="nav container navbar">
     <a href="index.html" class="logo">
     <img src="./images/logo1.png" alt="DuoEcom Logo" class="logo-light">
     <img src="./images/logo2.png" alt="DuoEcom Logo" class="logo-dark">
@@ -127,7 +128,13 @@
 <main>
 
   <!-- ============ HERO ============ -->
-  <section class="hero">
+  <section class="hero" 
+  data-aos="fade-down"
+  data-aos-duration="1200"
+  data-aos-delay="200"
+  data-aos-easing="ease-out-quart"
+  data-aos-once="true"
+    >
     <div class="hero-premium">
     <div class="container hero-inner">
       <div class="hero-network" aria-hidden="true">
@@ -155,12 +162,20 @@
 
       <div class="hero-grid">
         <div>
-          <p class="eyebrow">Available for freelance work</p>
-          <h1>High-converting <em style="font-style:normal; color:var(--accent);">Shopify stores</em>,<br>built for speed, trust, and sales.</h1>
-          <p class="lead" style="margin-top:18px;">DuoEcom designs and develops modern Shopify stores for growing brands — from custom storefronts and speed optimization to complete eCommerce setups that help visitors become customers.</p>
-          <div class="hero-actions">
-            <a href="./pages/contact.html" class="btn btn-accent">Start a project →</a>
-            <a href="./pages/portfolio.html" class="btn btn-ghost">View live stores</a>
+          <p class="eyebrow hero-badge">Available for freelance work</p>
+          <h1 class="hero-title">High-converting <em style="font-style:normal; color:var(--accent);">Shopify stores</em>,<br>built for speed, trust, and sales.</h1>
+          <p class="lead hero-description" style="margin-top:18px;">DuoEcom designs and develops modern Shopify stores for growing brands — from custom storefronts and speed optimization to complete eCommerce setups that help visitors become customers.</p>
+          <div class="hero-actions hero-btns">
+            <a
+              data-aos="zoom-in"
+              data-aos-delay="600"
+              data-aos-duration="700"
+             href="./pages/contact.html" class="btn btn-accent">Start a project →</a>
+            <a
+              data-aos="zoom-in"
+              data-aos-delay="300"
+              data-aos-duration="700"
+             href="./pages/portfolio.html" class="btn btn-ghost">View live stores</a>
           </div>
         </div>
       </div>
@@ -176,7 +191,16 @@
   </section>
 
   <!-- ============ TECH STACK ============ -->
-  <section class="section container">
+  <section class="section container"
+  data-aos="fade-up"
+    data-aos-offset="200"
+    data-aos-delay="50"
+    data-aos-duration="1000"
+    data-aos-easing="ease"
+    data-aos-mirror="true"
+    data-aos-once="false"
+    data-aos-anchor-placement="top-bottom" 
+  >
     <div class="section-head reveal">
       <h2>Technologies I use daily to craft exceptional digital experiences.</h2>
     </div>
@@ -313,7 +337,14 @@
     </div>
 
     <div class="services-interactive reveal" data-service-tabs>
-      <div class="services-nav">
+      <div class="services-nav"  
+      data-aos="fade-right"
+      data-aos-offset="200"
+      data-aos-delay="50"
+      data-aos-easing="ease-in-out"
+      data-aos-mirror="false"
+      data-aos-once="false"
+      data-aos-anchor-placement="top-bottom">
         <button class="service-nav-item is-active" data-service-target="0" type="button">
           <span class="service-nav-num">01</span>
           <span class="service-nav-text">
@@ -337,7 +368,15 @@
         </button>
       </div>
 
-      <div class="services-panels">
+      <div class="services-panels"
+      data-aos="fade-left"
+      data-aos-offset="200"
+      data-aos-delay="50"
+      data-aos-easing="ease-in-out"
+      data-aos-mirror="false"
+      data-aos-once="false"
+      data-aos-anchor-placement="top-bottom"
+      >
         <div class="card service-panel is-active" data-service-panel="0">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
@@ -384,7 +423,11 @@
         <div class="carousel-viewport" data-carousel-viewport>
           <div class="carousel-track" data-carousel-track>
 
-            <div class="card portfolio-card carousel-slide reveal" style="--i:0">
+            <div class="card portfolio-card carousel-slide reveal" style="--i:0"
+            data-aos="fade-up"
+            data-aos-duration="700"
+            data-aos-delay="400">
+            >
               <div class="store-frame">
                 <div class="store-frame-bar">
                   <div class="store-frame-dots"><span></span><span></span><span></span></div>
@@ -410,7 +453,11 @@
               </div>
             </div>
 
-            <div class="card portfolio-card carousel-slide reveal" style="--i:1">
+            <div class="card portfolio-card carousel-slide reveal" style="--i:1"
+            data-aos="fade-up"
+            data-aos-duration="700"
+            data-aos-delay="500">
+            >
               <div class="store-frame">
                 <div class="store-frame-bar">
                   <div class="store-frame-dots"><span></span><span></span><span></span></div>
@@ -436,7 +483,11 @@
               </div>
             </div>
 
-            <div class="card portfolio-card carousel-slide reveal" style="--i:2">
+            <div class="card portfolio-card carousel-slide reveal" style="--i:2"
+            data-aos="fade-up"
+            data-aos-duration="700"
+            data-aos-delay="600">
+            >
               <div class="store-frame">
                 <div class="store-frame-bar">
                   <div class="store-frame-dots"><span></span><span></span><span></span></div>
@@ -524,7 +575,11 @@
         <div class="carousel-viewport" data-carousel-viewport>
           <div class="carousel-track" data-carousel-track>
 
-            <div class="card testimonial-card carousel-slide reveal" style="--i:0">
+            <div class="card testimonial-card carousel-slide reveal" style="--i:0"
+            data-aos="fade-up"
+            data-aos-duration="700"
+            data-aos-delay="400"
+            >
               <div>
                 <div class="stars">
                   <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
@@ -541,7 +596,11 @@
               </div>
             </div>
 
-            <div class="card testimonial-card carousel-slide reveal" style="--i:1">
+            <div class="card testimonial-card carousel-slide reveal" style="--i:1"
+            data-aos="fade-up"
+            data-aos-duration="700"
+            data-aos-delay="500"
+            >
               <div>
                 <div class="stars">
                   <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
@@ -558,7 +617,11 @@
               </div>
             </div>
 
-            <div class="card testimonial-card carousel-slide reveal" style="--i:2">
+            <div class="card testimonial-card carousel-slide reveal" style="--i:2"
+            data-aos="fade-up"
+            data-aos-duration="700"
+            data-aos-delay="600"
+            >
               <div>
                 <div class="stars">
                   <svg viewBox="0 0 20 20"><path d="M10 1l2.9 6 6.6.9-4.8 4.6 1.1 6.5L10 16l-5.8 3 1.1-6.5L.5 7.9l6.6-.9z"/></svg>
@@ -597,8 +660,16 @@
       <h2>Ready to Launch a High-Converting Shopify Store?</h2>
       <p>Share your project details, and we'll respond within one business day with expert recommendations and a clear roadmap for your store.</p>
       <div class="btn-row">
-        <a href="./pages/contact.html" class="btn btn-accent">Start a project →</a>
-        <a href="./pages/portfolio.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,.3); color:#fff;">View live stores</a>
+        <a
+        data-aos="zoom-in-up"
+        data-aos-delay="400"
+        data-aos-duration="800"
+        href="./pages/contact.html" class="btn btn-accent">Start a project →</a>
+        <a
+        data-aos="zoom-in-up"
+        data-aos-delay="400"
+        data-aos-duration="800"
+         href="./pages/portfolio.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,.3); color:#fff;">View live stores</a>
       </div>
     </div>
   </section>
@@ -606,7 +677,11 @@
 </main>
 
 <footer class="site-footer">
-  <div class="container">
+  <div class="container"
+   data-aos="fade-up"
+   data-aos-duration="800"
+   data-aos-easing="ease-out-cubic"
+  >
     <div class="footer-top">
       <div class="footer-brand">
       <a href="index.html" class="logo">
@@ -672,5 +747,13 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="main.js" defer></script>
+
+<!-- AOS animation pugin -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+<!-- GSAP plugin -->
+ <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 </body>
 </html>
