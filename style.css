@@ -2056,3 +2056,21 @@ button.store-frame-body {
 @media (prefers-reduced-motion: reduce) {
   .site-footer { animation: none; }
 }
+
+.hero-zoom-reveal {
+    opacity: 0;
+    transform: scale(1.2);
+    animation: heroZoomReveal 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes heroZoomReveal {
+    from {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
