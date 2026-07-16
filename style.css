@@ -409,7 +409,7 @@ p { color: var(--ink-soft); }
   flex-direction: column;
   justify-content: center;
   padding: 32px;
-  margin-top: -150px;
+  margin-top: -110px;
   transform: translateY(-100%);
   transition: transform .4s var(--ease);
   opacity: 0;
@@ -1444,11 +1444,6 @@ button.store-frame-body {
   #preloader .preloader-bar::after { animation: none; left: 0; width: 100%; }
 }
 
-/* ==========================================================================
-   Hero — premium card with decorative network graphic.
-   Theme-aware: uses --bg-soft/--ink/--ink-soft/--line tokens so light mode
-   gets a light card + dark text, dark mode gets a dark card + light text.
-   ========================================================================== */
 .hero {
   padding-top: 0;
   padding-bottom: 0;
@@ -1551,15 +1546,6 @@ button.store-frame-body {
   .hero-network { transform: none !important; }
 }
 
-/* ==========================================================================
-   NEW PREMIUM FUNCTIONAL SECTIONS
-   (w3lead-style interactions: infinite logo/tech marquee, a numbered
-   tabbed services panel, and a swipeable/draggable carousel used for both
-   the portfolio preview and the testimonials. Content is unchanged — only
-   the interaction layer is new.)
-   ========================================================================== */
-
-/* ---------- Tech marquee (infinite auto-scroll) ---------- */
 .tech-marquee {
   position: relative;
   overflow: hidden;
@@ -1801,12 +1787,6 @@ button.store-frame-body {
   .carousel-track { transition: none; }
 }
 
-/* ==========================================================================
-   Portfolio lightbox — opens the clicked store preview large and centered,
-   growing outward from the spot that was clicked (like an expanding photo),
-   with the caption/result underneath. Closes via the × button, a click on
-   the backdrop, or Escape.
-   ========================================================================== */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -1899,15 +1879,6 @@ button.store-frame-body {
   .lightbox, .lightbox-dialog { transition: none; }
 }
 
-/* ==========================================================================
-   EXTRA SECTION ANIMATIONS — agency-style scroll motion
-   (Additive only: builds on the existing .reveal / .in-view system that
-   main.js already toggles via IntersectionObserver, so no JS changes are
-   required. Nothing here touches content, only how each section arrives
-   on screen and reacts on hover.)
-   ========================================================================== */
-
-/* ---------- Section headings: animated accent underline draws in ---------- */
 .section-head h2 {
   position: relative;
   display: inline-block;
@@ -2086,4 +2057,9 @@ button.store-frame-body {
   font-weight: bold !important;
   color: #000000 !important;
 
+}
+[data-theme="dark"] .navig,
+[data-theme="dark"] .navigg,
+[data-theme="dark"] .footer-bottom {
+  color: #ffffff !important;
 }
