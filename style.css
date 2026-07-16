@@ -1003,14 +1003,15 @@ button.store-frame-body {
 
 .footer-bottom {
   display: flex;
+  font-weight: bold;
   flex-wrap: wrap;
   gap: 12px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-top: 24px;
   border-top: 1px solid var(--line);
   font-size: 13px;
-  color: var(--ink-soft);
+  color: #000000;
 }
 
 /* ==========================================================================
@@ -2074,4 +2075,15 @@ button.store-frame-body {
         opacity: 1;
         transform: scale(1);
     }
+}
+.navig{
+  display: flex;
+  font-weight: bold !important;
+  color: #000000 !important;
+}
+.navigg{
+    display: flex;
+  font-weight: bold !important;
+  color: #000000 !important;
+
 }
