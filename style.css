@@ -110,6 +110,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .container {
   width: 100%;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -2063,8 +2064,4 @@ button.store-frame-body {
 [data-theme="dark"] .navigg,
 [data-theme="dark"] .footer-bottom {
   color: #ffffff !important;
-}
-
-* {
-  outline: 1px solid red;
 }
