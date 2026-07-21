@@ -400,6 +400,7 @@ p { color: var(--ink-soft); }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .mobile-menu {
+  padding-bottom: 1rem;
   position: fixed;
   inset: 0;
   top: 0;
