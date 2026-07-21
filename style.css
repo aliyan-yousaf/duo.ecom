@@ -110,7 +110,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .container {
   width: 100%;
-  max-width: 1180px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -401,7 +400,6 @@ p { color: var(--ink-soft); }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .mobile-menu {
-  padding-bottom: 1rem;
   position: fixed;
   inset: 0;
   top: 0;
@@ -2064,152 +2062,4 @@ button.store-frame-body {
 [data-theme="dark"] .navigg,
 [data-theme="dark"] .footer-bottom {
   color: #ffffff !important;
-}
-
-/* ==========================================================================
-   FINAL MOBILE HORIZONTAL OVERFLOW FIX
-   ========================================================================== */
-
-/* Prevent any page from becoming wider than the mobile viewport */
-html {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* Prevent elements from creating extra horizontal width */
-main,
-section,
-header,
-footer,
-.container,
-.page-head,
-.section,
-.hero,
-.hero-premium,
-.hero-inner {
-  max-width: 100%;
-}
-
-/* Important: grid and flex children must be allowed to shrink */
-.grid,
-.hero-grid,
-.services-interactive,
-.services-panels,
-.carousel,
-.carousel-viewport,
-.carousel-track,
-.tech-marquee,
-.tech-marquee-track,
-.footer-top {
-  min-width: 0;
-  max-width: 100%;
-}
-
-/* Prevent oversized content */
-img,
-svg,
-video,
-iframe {
-  max-width: 100%;
-}
-
-/* Prevent long text, email addresses and URLs from expanding page width */
-p,
-h1,
-h2,
-h3,
-h4,
-a,
-span,
-div {
-  overflow-wrap: break-word;
-}
-
-/* Mobile-specific overflow protection */
-@media (max-width: 899px) {
-
-  .container {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .page-head,
-  .section,
-  .section-tight,
-  .hero,
-  .hero-premium {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  /* Prevent cards from forcing extra width */
-  .card,
-  .form-card,
-  .contact-info-card,
-  .fast-response-card,
-  .testimonial-card,
-  .portfolio-card,
-  .cta-band {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
-
-  /* Force children inside grids and flex layouts to shrink */
-  .hero-grid > *,
-  .services-interactive > *,
-  .footer-top > *,
-  .contact-item > *,
-  .testimonial-person > * {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  /* Mobile menu stays inside viewport */
-  .mobile-menu {
-    width: 100%;
-    max-width: 100vw;
-    left: 0;
-    right: 0;
-  }
-
-  /* Floating tags cannot create horizontal overflow */
-  .floating-tag {
-    max-width: calc(100% - 24px);
-  }
-
-  /* Carousel must stay inside viewport */
-  .carousel,
-  .carousel-viewport {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  /* Long email/URL text */
-  .contact-item .val,
-  .footer-col a {
-    max-width: 100%;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  /* Prevent transformed elements from creating visible page overflow */
-  .store-frame,
-  .card,
-  .tech-card,
-  .portfolio-card {
-    max-width: 100%;
-  }
 }
