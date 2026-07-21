@@ -2064,3 +2064,9 @@ button.store-frame-body {
 [data-theme="dark"] .footer-bottom {
   color: #ffffff !important;
 }
+
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
