@@ -2065,8 +2065,6 @@ button.store-frame-body {
   color: #ffffff !important;
 }
 
-html,
-body {
-    width: 100%;
-    overflow-x: hidden;
+* {
+  outline: 1px solid red;
 }
